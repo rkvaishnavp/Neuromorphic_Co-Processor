@@ -1,5 +1,9 @@
 # Neuromorphic_Co-Processor
 
+## Instruction and Testbench Creation
+- run instruction.py using command
+- python3 instruction.py <image_path>
+
 ## OPCODE Definitions
 
 - **00**: Store Kernel Input to Mult_25
