@@ -29,19 +29,19 @@ module data_mem(
     always @(posedge clk) begin
         if(!rst) begin
             case(form)
-                3'b000: begin
+                3'b001: begin
                     data_out <= data_op;
                 end
-                3'b001: begin
+                3'b010: begin
                     case(dimension)
-                        3'b001: data_out[39:0] <= data_op[79:40];
+                        3'b001: begin data_out[39:0] <= data_op[79:40]; data_out[199:40] <= 0; end
                         3'b010: data_out[79:0] <= data_op[119:40];
                         3'b011: data_out[119:0] <= data_op[159:40];
                         3'b100: data_out[159:0] <= data_op[199:40];
                         3'b101: data_out <= {data_op[39:0], data_op[199:40]};
                     endcase
                 end
-                3'b010: begin
+                3'b011: begin
                     case(dimension)
                         3'b001: data_out[39:0] <= data_op[119:80];
                         3'b010: data_out[79:0] <= data_op[159:80];
@@ -50,7 +50,7 @@ module data_mem(
                         3'b101: data_out <= {data_op[79:0], data_op[199:80]};
                     endcase
                 end
-                3'b011: begin
+                3'b100: begin
                     case(dimension)
                         3'b001: data_out[39:0] <= data_op[159:120];
                         3'b010: data_out[79:0] <= data_op[199:120];
@@ -59,7 +59,7 @@ module data_mem(
                         3'b101: data_out <= {data_op[119:0], data_op[199:120]};
                     endcase
                 end
-                3'b100: begin
+                3'b101: begin
                     case(dimension)
                         3'b001: data_out[39:0] <= data_op[199:160];
                         3'b010: data_out[79:0] <= {data_op[39:0], data_op[199:160]};
@@ -69,11 +69,13 @@ module data_mem(
                     endcase
                 end
             endcase
+            data_form_out <= form;
             valid_out <= valid_in;
         end
         else begin
             data_out <= 0;
             valid_out <= 0;
+            data_form_out <= 0;
         end
     end
 endmodule

@@ -37,7 +37,7 @@ module core(
     reg [2:0] dimension;
     
     wire valid_in;
-    assign valid_in = instruction_op[0];
+    assign valid_in = (instruction_op[1:0] == 2'b10) ? 1 : 0;
     wire [2:0] data_form_out;
     wire [199:0] data_1;
     data_mem data_mem(
@@ -69,7 +69,7 @@ module core(
                 );
     
     wire kernel_we;
-    assign kernel_we = (instruction_op == 2'b00) ? 1 : 0;
+    assign kernel_we = (instruction_op[1:0] == 2'b00) ? 1 : 0;
     wire [4:0] kernel_addr;
     assign kernel_addr = instruction_op[26:22];
     wire [7:0] kernel_ip;

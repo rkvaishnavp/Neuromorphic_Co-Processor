@@ -11,7 +11,6 @@ module accumulator(
     );
     
     always @(posedge clk) begin
-        valid_op <= valid_ip;
         if(!rst) begin
             B[16:0] <= A[15:0] + A[31:16];
             B[33:17] <= A[47:32] + A[63:48];
@@ -26,9 +25,11 @@ module accumulator(
             B[186:170] <= A[335:320] + A[351:336];
             B[203:187] <= A[367:352] + A[383:368];
             B[219:204] <= A[399:384];
+            valid_op <= valid_ip;
         end
         else begin
             B <= 0;
+            valid_op <= valid_ip;
         end
     end
 endmodule

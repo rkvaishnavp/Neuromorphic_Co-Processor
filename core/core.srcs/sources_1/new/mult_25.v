@@ -4,7 +4,7 @@ module mult_25(
     input rst,
     
     input we,
-    input addr,
+    input [4:0] addr,
     input [7:0] kernel_ip,
     
     input [199:0] A,
@@ -19,10 +19,10 @@ module mult_25(
     integer i=0;
     
     always @(posedge clk) begin
-        valid_op <= valid_ip;
         if(!rst) begin
             if(we) begin
                 kernel[addr] <= kernel_ip;
+                valid_op <= valid_ip;
             end
             else begin
                 C[15:0] <= kernel[0] * A[7:0];
@@ -50,6 +50,7 @@ module mult_25(
                 C[367:352] <= kernel[22] * A[183:176];
                 C[383:368] <= kernel[23] * A[191:184];
                 C[399:384] <= kernel[24] * A[199:192];
+                valid_op <= valid_ip;
             end
         end
         else begin
@@ -57,6 +58,7 @@ module mult_25(
             for(i=0;i<25;i=i+1) begin
                 kernel[i] = 0;
             end
+            valid_op <= valid_ip;
         end
     end
 endmodule

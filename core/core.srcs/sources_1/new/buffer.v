@@ -21,7 +21,7 @@ module buffer(
         if(!rst) begin
             if(valid_in) begin
                 case(form)
-                    3'b000: begin
+                    3'b001: begin
                         case(dimension)
                             3'b001: begin
                                 buffer_data[0] <= data_in[39:0];
@@ -52,7 +52,7 @@ module buffer(
                         data_out <= {buffer_data[4], buffer_data[3], buffer_data[2], buffer_data[1], buffer_data[0]};
                         valid_out <= valid_in;
                     end
-                    3'b001: begin
+                    3'b010: begin
                         case(dimension)
                             3'b001: begin
                                 buffer_data[0] <= data_in[39:0];
@@ -101,7 +101,7 @@ module buffer(
                             end
                         endcase
                     end
-                    3'b010: begin
+                    3'b011: begin
                         case(dimension)
                             3'b001: begin
                                 buffer_data[0] <= data_in[39:0];
@@ -150,7 +150,7 @@ module buffer(
                             end
                         endcase
                     end
-                    3'b011: begin
+                    3'b100: begin
                         case(dimension)
                             3'b001: begin
                                 buffer_data[0] <= data_in[39:0];
@@ -199,7 +199,7 @@ module buffer(
                             end
                         endcase
                     end
-                    3'b100: begin
+                    3'b101: begin
                         case(dimension)
                             3'b001: begin
                                 buffer_data[0] <= data_in[39:0];
